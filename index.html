@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>가상 연재 웹페이지</title>
+  <style>
+    /* CSS 스타일링 */
+    .fade-in {
+      opacity: 0;
+      animation: fade-in-animation 1s forwards;
+    }
+
+    @keyframes fade-in-animation {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .text-area {
+      width: 300px;
+      height: 300px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fade-in-animation 1s 0.3s forwards;
+      cursor: pointer;
+    }
+
+    .error-popup {
+      display: none;
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .comment-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 50px;
+    }
+
+    .loading-animation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 20px;
+    }
+
+    .comment-box {
+      width: 200px;
+      height: 100px;
+      background-color: #eee;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      opacity: 0;
+      animation: fade-in-animation 1s forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <textarea class="text-area fade-in"></textarea>
+    <h1 class="heading fade-in">가상 연재에 도전해보세요!</h1>
+    <button class="button fade-in">제출하기</button>
+    <div class="error-popup">입력된 텍스트가 없습니다.</div>
+    <div class="comment-section">
+      <div class="loading-animation">로딩중...</div>
+      <!-- 댓글 박스들이 동적으로 생성됩니다. -->
+    </div>
+  </div>
+
+  <script>
+    // JavaScript 코드
+    const textarea = document.querySelector('.text-area');
+    const heading = document.querySelector('.heading');
+    const button = document.querySelector('.button');
+    const errorPopup = document.querySelector('.error-popup');
+    const commentSection = document.querySelector('.comment-section');
+    const loadingAnimation = document.querySelector('.loading-animation');
+
+    button.addEventListener('click', function() {
+      const text = textarea.value.trim();
+      if (text === '') {
+        errorPopup.style.display = 'block';
+      } else {
+        // 서버로 텍스트 내용 전송하는 로직
+        // ...
+
+        // 텍스트 전송 후 화면 이동 및 댓글 로딩 로직
+        textarea.classList.add('fade-out');
+        heading.classList.add('fade-out');
+        button.classList.add('fade-out');
+        loadingAnimation.style.display = 'block';
+
+        // 가상 댓글 데이터를 받아와서 표시하는 로직
+        // ...
+
+        // 예시로 가상 댓글 박스를 생성하여 추가합니다.
+        const commentBox = document.createElement('div');
+        commentBox.classList.add('comment-box');
+        commentBox.textContent = '가상 댓글 데이터';
+        commentSection.appendChild(commentBox);
+
+        // 애니메이션 적용
+        textarea.addEventListener('animationend', function() {
+          textarea.style.transform = 'translateX(-100%)';
+          commentBox.classList.add('fade-in');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
